@@ -1,0 +1,16 @@
+en_US:
+  MockDataObject:
+    FIRSTNAME: "Firstname, FirstName"
+    LASTNAME: "Surname, LastName, Lastname"
+    FULLNAME: "FullName"
+    CITY: "City, Town"
+    STATE: "State"
+    ADDRESS: "Address, Address1, Address2"
+    POSTCODE: "Zip, Zipcode, ZipCode"
+    COUNTRYCODE: "Country, CountryCode"
+    PHONENUMBER: "Phone, PhoneNumber, Fax, Cell, Mobile, Telephone, Phonenumber"
+    EMAIL: "Email, EmailAddress"
+    COMPANY: "Company, CompanyName, Organization"
+    URL: "URL, Website, URI"
+    LATITUDE: "Latitude, Lat"
+    LONGITUDE: "Longitude, Lon"
