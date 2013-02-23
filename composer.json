@@ -13,8 +13,8 @@
     "require":
     {
         "silverstripe/framework": "3.*",
-	    "silverstripe/cms": "3.*",
-        "fzaninotto/faker": "dev-master"
+	"silverstripe/cms": "3.*",
+        "fzaninotto/faker": "1.1.*@dev"
 
     },
     "extra": {
