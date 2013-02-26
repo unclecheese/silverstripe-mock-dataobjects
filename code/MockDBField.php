@@ -2,7 +2,7 @@
 
 class MockDBField extends DataExtension {
 
-	public function getFakerData(Generator $faker) {
+	public function getFakeData(Generator $faker) {
 		return "";
 	}
 

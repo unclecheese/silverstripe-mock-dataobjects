@@ -5,17 +5,17 @@
 
 class MockVarcharField extends DataExtension {
 
-	public function getFakerData(Generator $faker) {
+	public function getFakeData(Generator $faker) {
 		$candidates = array (
 			'firstName',
 			'lastName',
+			'email',
 			'city',
 			'state',
 			'address',
 			'postcode',
 			'countryCode',
 			'phoneNumber',
-			'email',
 			'url'
 		);
 		foreach($candidates as $c) {

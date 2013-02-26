@@ -4,8 +4,8 @@
 class MockDecimalField extends DataExtension {
 
 
-	public function getFakerData(Generator $faker) {
-		return DBField::create_field("Float", 0)->getFakerData($faker);
+	public function getFakeData(Generator $faker) {
+		return DBField::create_field("Float", 0)->getFakeData($faker);
 	}
 
 }

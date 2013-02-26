@@ -3,7 +3,7 @@
 
 class MockPercentageField extends DataExtension {
 
-	public function getFakerData(Generator $faker) {
+	public function getFakeData(Generator $faker) {
 		return $faker->randomFloat(2, 0, 1);
 	}
 

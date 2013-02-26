@@ -5,7 +5,7 @@
 
 class MockHTMLTextField extends DataExtension {
 
-	public function getFakerData(Generator $faker) {
+	public function getFakeData(Generator $faker) {
 		$paragraphs = rand(1, 5);
 		$i = 0;
 		$ret = "";

@@ -1,5 +1,8 @@
 <?php
 
+
+define('MOCK_DATAOBJECTS_DIR',basename(dirname(__FILE__)));
+
 foreach(SS_ClassLoader::instance()->getManifest()->getDescendantsOf("DBField") as $class) {
 	$mockClass = "Mock{$class}Field";
 	if(class_exists($mockClass)) {

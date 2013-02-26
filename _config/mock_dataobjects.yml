@@ -1,2 +1,6 @@
 MockDataObject:
-  fake_created_date: "1979-01-29 02:02:00"
+  fill_options:
+    include_relations: true
+    download_images: false
+    only_empty: true
+  relation_create_limit: 5

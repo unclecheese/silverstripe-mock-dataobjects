@@ -3,7 +3,7 @@
 
 class MockTextField extends DataExtension {
 
-	public function getFakerData(Generator $faker) {
+	public function getFakeData(Generator $faker) {
 		return $faker->paragraph(rand(1,3));
 	}
 }

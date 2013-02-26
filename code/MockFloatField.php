@@ -5,7 +5,7 @@
 
 class MockFloatField extends DataExtension {
 
-	public function getFakerData(Generator $faker) {
+	public function getFakeData(Generator $faker) {
 		if($this->owner->hook("LATITUDE")) {
 			return $faker->latitude;
 		}
