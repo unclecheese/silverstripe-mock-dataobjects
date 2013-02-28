@@ -1,5 +1,5 @@
 {
-    "name": "silverstripe/mock-dataobjects",
+    "name": "unclecheese/mock-dataobjects",
     "description": "Allows DataObjects to self-populate intelligently using fake data",
     "type": "silverstripe-module",
     "keywords": ["silverstripe", "dataobject", "content", "seeding", "fake"],
@@ -19,6 +19,8 @@
     },
     "extra": {
 	"installer-name": "mock_dataobjects"
-    }
-    
+    },
+    "replace": {
+    	"silverstripe/mock-dataobjects": "*"
+    }    
 }
