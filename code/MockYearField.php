@@ -1,6 +1,8 @@
 <?php
 
 
+use Faker\Generator;
+
 
 class MockYearField extends DataExtension {
 

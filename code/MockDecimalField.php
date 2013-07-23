@@ -1,5 +1,7 @@
 <?php
 
+use Faker\Generator;
+
 
 class MockDecimalField extends DataExtension {
 

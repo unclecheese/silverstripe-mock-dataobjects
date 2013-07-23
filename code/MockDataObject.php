@@ -29,10 +29,12 @@ class MockDataObject extends DataExtension {
 
 
 	public static function download_lorem_image() {
-		$url = 'http://lorempixel.com/1024/768';
-		$img_filename = "mock_file_".time().".jpeg";
+		$url = 'http://lorempixel.com/1024/768?t='.uniqid();
+		$img_filename = "mock-file-".uniqid().".jpeg";
+
 		$img = self::get_mock_folder()->getFullPath().$img_filename;
-		if(ini_get('allow_url_fopen')) {						
+		
+		if(ini_get('allow_url_fopen')) {									
 			file_put_contents($img, file_get_contents($url));			
 		}
 		else {
@@ -51,7 +53,9 @@ class MockDataObject extends DataExtension {
 		$i->Filename = self::get_mock_folder()->Filename.$img_filename;
 		$i->Title = $img_filename;
 		$i->Name = $img_filename;
+		$i->ParentID = self::get_mock_folder()->ID;		
 		$i->write();
+
 		return $i;
 	}
 
@@ -147,6 +151,8 @@ class MockDataObject extends DataExtension {
 		$log->RecordClass = $this->owner->ClassName;
 		$log->RecordID = $this->owner->ID;
 		$log->write();
+
+		return $this->owner;
 
 	}
 

@@ -1,5 +1,7 @@
 <?php
 
+use Faker\Generator;
+
 
 class MockDateField extends DataExtension {
 

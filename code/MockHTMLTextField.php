@@ -1,7 +1,7 @@
 <?php
 
 
-
+use Faker\Generator;
 
 class MockHTMLTextField extends DataExtension {
 

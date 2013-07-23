@@ -1,6 +1,10 @@
 <?php
 
 
+
+use Faker\Generator;
+
+
 class MockHTMLVarcharField extends DataExtension {
 
 	public function getFakeData(Generator $faker) {

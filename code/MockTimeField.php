@@ -1,6 +1,8 @@
 <?php
 
 
+use Faker\Generator;
+
 
 class MockTimeField extends DataExtension {
 

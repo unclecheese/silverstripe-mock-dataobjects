@@ -1,6 +1,6 @@
 <?php
 
-
+use Faker\Generator;
 
 
 class MockIntField extends DataExtension {

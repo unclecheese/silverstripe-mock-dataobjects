@@ -1,6 +1,9 @@
 <?php
 
 
+use Faker\Generator;
+
+
 class MockMoneyField extends DataExtension {
 
 	public function getFakeData(Generator $faker) {

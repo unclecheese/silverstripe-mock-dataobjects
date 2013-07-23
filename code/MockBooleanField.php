@@ -1,7 +1,7 @@
 <?php
 
 
-
+use Faker\Generator;
 
 class MockBooleanField extends DataExtension {
 

@@ -1,3 +1,14 @@
+---
+Name: mockdataobjects
+---
+DBField:
+  extensions:
+    - MockDBField
+
+DataObject:
+  extensions:
+    - MockDataObject
+
 MockDataObject:
   fill_options:
     include_relations: true

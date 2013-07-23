@@ -1,5 +1,9 @@
 <?php
 
+
+use Faker\Generator;
+
+
 class MockDBField extends DataExtension {
 
 	public function getFakeData(Generator $faker) {
