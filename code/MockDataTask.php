@@ -14,6 +14,7 @@ class MockDataTask extends BuildTask {
 
 
 	public function run($request) {
+		$builder = new MockDataBuilder("NewsPage");
 		$this->request = $request;
 		$args = $request->getVar('args');
 		if(count($args) < 2) {
@@ -26,85 +27,47 @@ class MockDataTask extends BuildTask {
 			$this->showError("Please specify a valid DataObject descendant class.");
 		}
 
-		switch($operation) {
-			case "generate":
-				$this->doGenerate($className);
-			break;
-
-			case "populate":
-				$this->doPopulate($className);
-			break;
-
-			default:
-				$this->showError("Please specify a valid operation (\"generate\" or \"populate\")");
-			break;
+		if(!in_array($operation, array('generate','populate'))) {
+			$this->showError("Please specify a valid operation (\"generate\" or \"populate\")");
 		}
+
+		$this->runCommand($operation, $className);
 
 	}
 
 
 
-	protected function doGenerate($className) {
+	protected function runCommand($cmd, $className) {
 		$count = $this->request->getVar('count') ?: 10;
 		$parent = $this->request->getVar('parent');
-		$parentField = $this->request->getVar('parentfield') ?: "ParentID";
+		$parentField = $this->request->getVar('parentField') ?: "ParentID";
 
-		$config = array ();
-		if($this->request->getVar('onlyEmpty')) {
-			$config['only_empty'] = true;
+		try {
+			$builder = MockDataBuilder::create($className);
 		}
-		if($this->request->getVar('downloadImages')) {
-			$config['download_images'] = true;
-		}
-		if($this->request->getVar('includeRelations')) {
-			$config['include_relations'] = true;
+		catch(Exception $e) {
+			echo $e->getMessage();
+			die();
 		}
 
+		$builder
+			->setOnlyEmpty($this->request->getVar('onlyEmpty') === "false" ? false : true)
+			->setDownloadImages($this->request->getVar('download_images') === "false" ? false : true)
+			->setCount($count)
+			->setParentIdentifier($parent ?: null)
+			->setParentField($parentField)
+		;
 
-		if($parent) {
-			$parentPage = SiteTree::get()->byID((int) $parent);
-			if(!$parentPage) {
-				$parentPage = SiteTree::get_by_link($parent);
-			}
-			if(!$parentPage) {
-				$parentPage = SiteTree::get()->filter(array('Title' => trim($parent)))->first();
-			}
-			if(!$parentPage) {
-				$this->showError("Could not find a page with ID, URLSegment, or Title \"$parent\"");
-			}
-
-			if(!$parentPage->hasField($parentField)) {
-				$this->showError("$className has no field $parentField.");
-			}
-
+		try {
+			$builder->$cmd();
 		}
-
-		$sitetree = is_subclass_of($className, "SiteTree");
-		$i = 0;
-		while($i <= $count) {
-			$obj = Injector::inst()->create($className);
-			$obj->fill($config);
-			if($parent && $parentPage) {
-				$this->writeOut("Parent page is {$parentPage->ID}");
-				$obj->$parentField = $parentPage->ID;
-			}
-			if($sitetree) {
-				$obj->publish("Stage","Live");
-				$obj->write();
-			}
-			$this->writeOut("Created $className record with ID {$obj->ID}.");
-			$i++;
-		}
+		catch(Exception $e) {
+			echo $e->getMessage()."\n\n";
+			die();
+		}		
 	}
 
 
-
-
-
-	protected function doPopulate($className) {
-
-
-	}
 
 
 

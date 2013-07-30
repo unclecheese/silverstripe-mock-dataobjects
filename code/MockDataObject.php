@@ -63,9 +63,15 @@ class MockDataObject extends DataExtension {
 	public function fill($config = array ()) {
 		$faker = Faker\Factory::create();
 		$defaults = Config::inst()->get("MockDataObject", "fill_options");
+		$create_limit = Config::inst()->get("MockDataObject", "relation_create_limit");
 		$settings = array_merge($defaults, $config);
-		$db = $this->owner->db();		
+		$omit = Injector::inst()->get("SiteTree")->db();
+		unset($omit['Title']);
+		unset($omit['Content']);
+		$db = $this->owner->db();
+
 		foreach($db as $fieldName => $fieldType) {			
+			if(in_array($fieldName, $omit)) continue;
 			if($settings['only_empty'] && $this->owner->obj($fieldName)->exists()) continue;
 			
 			$value = $this->owner->obj($fieldName)->getFakeData($faker);

@@ -8,6 +8,6 @@ class MockTimeField extends DataExtension {
 
 
 	public function getFakeData(Generator $faker) {
-		return $faker->dateTimeThisMonth;
+		return $faker->dateTimeThisMonth()->format('H:i:s');
 	}
 }

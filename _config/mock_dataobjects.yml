@@ -12,6 +12,10 @@ DataObject:
 MockDataObject:
   fill_options:
     include_relations: true
-    download_images: false
+    download_images: true
     only_empty: true
   relation_create_limit: 5
+
+SiteTree:
+  extensions:
+    - MockDataSiteTree
