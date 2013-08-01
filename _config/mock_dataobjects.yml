@@ -19,3 +19,13 @@ MockDataObject:
 SiteTree:
   extensions:
     - MockDataSiteTree
+CMSMain:
+  extensions:
+    - MockDataCMSMainExtension
+---
+Name: gridfieldbuttons
+Before: betterbuttons
+---
+GridFieldDetailForm_ItemRequest:
+  extensions:
+    - MockDataGridFieldItemRequest
