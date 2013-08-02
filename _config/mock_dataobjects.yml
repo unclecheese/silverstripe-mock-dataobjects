@@ -21,7 +21,7 @@ SiteTree:
     - MockDataSiteTree
 CMSMain:
   extensions:
-    - MockDataCMSMainExtension
+    - MockDataCMS
 ---
 Name: gridfieldbuttons
 Before: betterbuttons

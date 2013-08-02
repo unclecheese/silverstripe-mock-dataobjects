@@ -109,12 +109,11 @@ class MockChildrenController extends CMSMain {
 			return $this->redirectBack();
 		}
 		// die("done");
-
 		$this->response->addHeader(
 			'X-Status',
 			_t('MockData.CREATESUCCESS','Created {count} mock children under {title}',array('count' => $data['Count'], 'title' => $parentPage->Title))
 		);		
-		$this->redirect(singleton('CMSPagesController')->Link());
+		$this->redirect(Controller::join_links(singleton('CMSPageEditController')->Link('show'), $parentPage->ID));
 		return $this->getResponseNegotiator()->respond($this->request);
 
 

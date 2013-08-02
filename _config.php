@@ -12,5 +12,5 @@ foreach(SS_ClassLoader::instance()->getManifest()->getDescendantsOf("DBField") a
 	}
 }
 
-LeftAndMain::require_javascript(MOCK_DATAOBJECTS_DIR.'/javascript/mock_dataobjects.js');
+//LeftAndMain::require_javascript(MOCK_DATAOBJECTS_DIR.'/javascript/mock_dataobjects.js');
 CMSMenu::remove_menu_item('MockChildrenController');
