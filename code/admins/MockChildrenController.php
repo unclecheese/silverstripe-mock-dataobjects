@@ -23,7 +23,7 @@ class MockChildrenController extends CMSMain {
 
 	function MockChildrenForm() {
 		$pageTypes = array();
-		$parentID = $this->request->param('ID') ?: $this->request->requestVar('ParentID');
+		$parentID = $this->request->param('ID') ?: $this->request->requestVar('ID');
 		$parentPage = SiteTree::get()->byID((int) $parentID);
 		if(!$parentPage) {
 			return false;
@@ -67,7 +67,7 @@ class MockChildrenController extends CMSMain {
 				0 => _t('MockData.USEEXISTING','Use existing files and images'),
 				1 => _t('MockData.DOWNLOADNEW','Download new files and images')
 			)),
-			new HiddenField('ParentID','', $parentPage->ID)
+			new HiddenField('ID','', $parentPage->ID)
 		);
 
 		
@@ -90,7 +90,7 @@ class MockChildrenController extends CMSMain {
 
 
 	public function doAddMockChildren($data, $form) {
-		$parentPage = SiteTree::get()->byID((int) $data['ParentID']);
+		$parentPage = SiteTree::get()->byID((int) $data['ID']);
 		if(!$parentPage) return false;
 		
 		$className = isset($data['PageType']) ? $data['PageType'] : "Page";

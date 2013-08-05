@@ -23,5 +23,25 @@ $.entwine('ss.tree', function($){
 			return config;
 		}
 	});
+
 });
+
+$.entwine('ss', function($){
+	$('#Form_MockChildrenForm.cms-edit-form').entwine({
+
+			onsubmit: function(e, button) {				
+				if(this.prop("target") != "_blank") {
+					var id = this.find(":input[name=ParentID]").val();					
+					if(button) this.closest('.cms-container').submitForm(this, button, function(data, status, xhr){
+							console.log("refresh");
+							jQuery('.cms-tree').jstree('refresh');
+							console.log("done");
+						}
+					);
+					return false;
+				}
+			},
+	})
+});
+
 })(jQuery);
