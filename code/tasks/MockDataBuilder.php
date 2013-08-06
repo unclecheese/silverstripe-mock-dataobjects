@@ -73,6 +73,7 @@ class MockDataBuilder extends Object {
 
 		
 		$i = 0;
+		$ids = array ();
 		$parentField = $this->parentField;
 		while($i < $this->count) {
 			$obj = Injector::inst()->create($this->subjectClass);
@@ -86,14 +87,14 @@ class MockDataBuilder extends Object {
 				$obj->$parentField = $this->parentObj->ID;
 			}
 			if($this->isSiteTree) {
-				$obj->write();
+				$ids[] = $obj->write();
 				$obj->publish("Stage","Live");
 			}
 			$this->log("Created {$this->subjectClass} \"{$obj->getTitle()}\".");
 			$i++;
 		}
 
-
+		return $ids;
 
 	}
 

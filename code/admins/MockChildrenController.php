@@ -17,6 +17,9 @@ class MockChildrenController extends CMSMain {
 	);
 
 
+
+
+
 	public function node(SS_HTTPRequest $r) {
 		return $this->getResponseNegotiator()->respond($r);
 	}
@@ -102,18 +105,17 @@ class MockChildrenController extends CMSMain {
 			->setParentField("ParentID")
 			->setParentObj($parentPage);
 		try {
-			$builder->generate();
+			$ids = $builder->generate();
 		}
 		catch(Exception $e) {
 			$form->sessionMessage($e->getMessage(),"bad");
 			return $this->redirectBack();
 		}
-		// die("done");
 		$this->response->addHeader(
 			'X-Status',
 			_t('MockData.CREATESUCCESS','Created {count} mock children under {title}',array('count' => $data['Count'], 'title' => $parentPage->Title))
-		);		
-		$this->redirect(Controller::join_links(singleton('CMSPageEditController')->Link('show'), $parentPage->ID));
+		);
+		$this->redirect(Controller::join_links(singleton('CMSPagesController')->Link()));		
 		return $this->getResponseNegotiator()->respond($this->request);
 
 

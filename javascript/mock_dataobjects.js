@@ -1,4 +1,4 @@
-(function($) {
+(function($) {	
 $.entwine('ss.tree', function($){
 	$('.cms .cms-tree').entwine({
 		getTreeConfig: function() {
@@ -26,22 +26,53 @@ $.entwine('ss.tree', function($){
 
 });
 
-$.entwine('ss', function($){
-	$('#Form_MockChildrenForm.cms-edit-form').entwine({
+$.entwine('ss.tree', function($){	
+	$('.cms .cms-tree').entwine({
 
-			onsubmit: function(e, button) {				
-				if(this.prop("target") != "_blank") {
-					var id = this.find(":input[name=ParentID]").val();					
-					if(button) this.closest('.cms-container').submitForm(this, button, function(data, status, xhr){
-							console.log("refresh");
-							jQuery('.cms-tree').jstree('refresh');
-							console.log("done");
+		'from .cms-container': {
+
+			onafterstatechange: function(e){								
+				if(id = $('.cms-container').entwine('.ss').getMockChildrenID()) {					
+					var self = this;
+					$.ajax({
+						url: self.data('urlTree'),
+						type: "GET",
+						data: {"ID": id},
+						success: function(data) {
+							var ids = [];
+							var $html = $("<ul>"+data+"</ul>");
+							$html.find('li').each(function() {
+								ids.push($(this).data('id'));
+							});							
+							self.updateNodesFromServer(ids);
+							$('.cms-container').entwine('.ss').setMockChildrenID(null)
 						}
-					);
-					return false;
+					});
 				}
-			},
-	})
+				else {						
+					this.updateFromEditForm();
+				}					
+			}
+		}
+
+	});
+
+
+});
+
+
+$.entwine('ss', function($) {
+	$('.cms .cms-container').entwine({
+		MockChildrenID: null
+	});
+
+	$('#Form_MockChildrenForm').entwine({
+		onmatch: function() {
+			var id = this.find(':input[name=ID]').val();
+			$('.cms-container').setMockChildrenID(id);			
+		}
+	});
+
 });
 
 })(jQuery);
