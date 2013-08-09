@@ -146,6 +146,5 @@ $args[] = isset($PARAMS['overwrite']) ? "--onlyEmpty=false" : "";
 
 $arguments = implode(" ", $args);
 $cmd = $framework_dir . "/sake dev/tasks/MockDataTask $operation $className $arguments";
-echo $cmd."\n";
 run_process($cmd);
 echo "\n\n";

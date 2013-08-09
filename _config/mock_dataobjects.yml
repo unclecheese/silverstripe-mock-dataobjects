@@ -22,6 +22,9 @@ SiteTree:
 CMSMain:
   extensions:
     - MockDataCMS
+GridFieldConfig_RecordEditor:
+  extensions:
+    - MockDataObjectGridFieldConfig
 ---
 Name: gridfieldbuttons
 Before: betterbuttons
@@ -29,3 +32,4 @@ Before: betterbuttons
 GridFieldDetailForm_ItemRequest:
   extensions:
     - MockDataGridFieldItemRequest
+
