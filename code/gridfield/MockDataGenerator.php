@@ -4,22 +4,23 @@
 class MockDataGenerator implements GridField_HTMLProvider, GridField_DataManipulator, GridField_ActionProvider {
 
 
-	public function getHTMLFragments($gridField) {		
+	public function getHTMLFragments($gridField) {
+		Requirements::javascript(MOCK_DATAOBJECTS_DIR.'/javascript/mock_dataobjects.js');
+		Requirements::css(MOCK_DATAOBJECTS_DIR.'/css/mock_dataobjects.css');
+
 		$forTemplate = new ArrayData(array());
 		$forTemplate->Colspan = count($gridField->getColumns());
-		$forTemplate->Fields = new ArrayList();
-		$forTemplate->Fields->push(
-			new FieldGroup(
-				new LabelField('mockdata_create',_t('MockDataGenerator.CREATE','Create').'&nbsp;'),
-				new TextField('mockdata[Count]','','10'),
-				new LabelField('mockdata_records',_t('MockDataGenerator.MOCKRECORDS','&nbsp;mock records')),
-				GridField_FormAction::create($gridField, 'mockdata', 'hi', 'mockdata', null)
+		$forTemplate->CountField = TextField::create('mockdata[Count]','','10')
+			->setAttribute('maxlength', 2)
+			->setAttribute('size', 2);
+		$forTemplate->RelationsField = new CheckboxField('mockdata[IncludeRelations]','', true);
+		$forTemplate->DownloadsField = new CheckboxField('mockdata[DownloadImages]','', false);
+		$forTemplate->Action = GridField_FormAction::create($gridField, 'mockdata', _t('MockData.CREATE','Create'), 'mockdata', null)
 					->addExtraClass('mock-data-generator-btn')					
-					->setAttribute('id', 'action_mockdata_' . $gridField->getModelClass())
-			)
-		);
+					->setAttribute('id', 'action_mockdata_' . $gridField->getModelClass());
+
 		return array(
-			'header' => $forTemplate->renderWith('MockDataGeneratorHeader_Row')
+			'before' => $forTemplate->renderWith('MockDataGenerator')
 		);
 
 

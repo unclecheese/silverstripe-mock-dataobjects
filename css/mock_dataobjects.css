@@ -1,3 +1,16 @@
+.cms .ss-gridfield .mockdata-generator-options {background: #ddd; padding:10px;margin:10px 0;height:29px;}
+.cms .ss-gridfield .mockdata-generator-options button {margin-left:50px;}
+.cms .ss-gridfield .mockdata-generator-options input.text {width: 3em;padding:1px 4px;}
+.cms .ss-gridfield .mockdata-options-left {float:left;padding-top:5px;}
+.cms .ss-gridfield .mockdata-options-right {float:right;}
+
+
+
+
+
+
+
+/*
 #mock-data-admin {}
 #ParentID, #DownloadImages, #IncludeRelations {display:none;}
 .mock-data-container {padding:40px;}
@@ -115,4 +128,4 @@
 	background: #ddd;
 	text-decoration: none;
 }
-
+*/

@@ -21,13 +21,8 @@ $.entwine('ss.tree', function($){
 				return items;
 			}
 			return config;
-		}
-	});
+		},
 
-});
-
-$.entwine('ss.tree', function($){	
-	$('.cms .cms-tree').entwine({
 
 		'from .cms-container': {
 
@@ -54,17 +49,19 @@ $.entwine('ss.tree', function($){
 				}					
 			}
 		}
-
 	});
-
-
 });
 
 
+
 $.entwine('ss', function($) {
+
+
 	$('.cms .cms-container').entwine({
 		MockChildrenID: null
 	});
+
+	
 
 	$('#Form_MockChildrenForm').entwine({
 		onmatch: function() {
@@ -73,6 +70,16 @@ $.entwine('ss', function($) {
 		}
 	});
 
-});
 
+	$('.mockdata-generator-toggle-btn a').entwine({
+
+		onclick: function(e) {
+			e.preventDefault();			
+			$('.mockdata-generator-options').slideToggle();
+			var newText = this.data('toggletext');
+			this.data('toggletext', this.text());
+			this.text(newText);
+		}
+	})
+});
 })(jQuery);
