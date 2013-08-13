@@ -1,19 +1,41 @@
 <?php 
 
 
+/**
+ * Injects functionality into every {@link DataObject} subclass to populate its
+ * database fields and data relations with mock data.
+ *
+ * @package silverstripe-mock-dataobjects
+ * @author Uncle Cheese <unclecheese@leftandmain.com>
+ */
 class MockDataObject extends DataExtension {
 
 
+	/**
+	 * An accessor to get all of the stock files that ship with the package
+	 *
+	 * @return DataList
+	 */
 	public static function get_mock_files() {
 		return File::get()->filter("ParentID", self::get_mock_folder()->ID);
 	}
 
 
+	
+	/**
+	 * An accessor to get the folder where all of the stock files are stored
+	 *
+	 * @return Folder
+	 */
 	public static function get_mock_folder() {
 		return Folder::find_or_make("mock-files");
 	}
 
 
+
+	/**
+	 * Copies stock files from the module directory to the filesytem and updates the database.
+	 */
 	public static function install_mock_files() {        
         $sample_path = Director::baseFolder().'/'.MOCK_DATAOBJECTS_DIR.'/lib';
         $sample_files = glob($sample_path.'/*.jpeg');
@@ -28,6 +50,13 @@ class MockDataObject extends DataExtension {
 	}
 
 
+
+	/**
+	 * Downloads a random image from a public website and installs it into the filesystem
+	 *
+	 * @todo This should really be an injectable service. It locks the user into a specific URL.
+	 * @return Image
+	 */
 	public static function download_lorem_image() {
 		$url = 'http://lorempixel.com/1024/768?t='.uniqid();
 		$img_filename = "mock-file-".uniqid().".jpeg";
@@ -60,14 +89,34 @@ class MockDataObject extends DataExtension {
 	}
 
 
+
+	/**
+	 * Populates all of the native database fields and optionally fills in data relations.
+	 * Accepts an array of settings, ex:
+	 *
+	 * array(
+	 *	'only_empty' => true, // only fill in empty fields
+	 *	'include_relations' => true, // Include has_many and many_many relations
+	 *	'relation_create_limit' => 5, // If there aren't any existing records for many_many or has_one relations, limit creation to this number
+	 *	'download_images' => false, // Don't download images from the web. Use existing.
+	 * );
+	 *
+	 * @param array $config The configuration options
+	 * @return DataObject
+	 */
 	public function fill($config = array ()) {
 		$faker = Faker\Factory::create();
 		$defaults = Config::inst()->get("MockDataObject", "fill_options");
 		$create_limit = Config::inst()->get("MockDataObject", "relation_create_limit");
 		$settings = array_merge($defaults, $config);
+		
+		// Anything that is a core SiteTree field, e.g. "URLSegment", "ShowInMenus", "ParentID",  we don't care about.
 		$omit = Injector::inst()->get("SiteTree")->db();
+
+		// Except these two.
 		unset($omit['Title']);
 		unset($omit['Content']);
+
 		$db = $this->owner->db();
 
 		foreach($db as $fieldName => $fieldType) {			
@@ -155,6 +204,8 @@ class MockDataObject extends DataExtension {
 		}
 
 
+
+		// Create a record of this mock data so that we can delete it later
 		$log = MockDataLog::create();
 		$log->RecordClass = $this->owner->ClassName;
 		$log->RecordID = $this->owner->ID;
@@ -166,6 +217,10 @@ class MockDataObject extends DataExtension {
 
 
 
+	/**
+	 * Cleans up the {@link MockDataLog} records. This is kind of expensive to attach to every
+	 * DataObject for every delete, but fortunately this module is never used in production.
+	 */
 	public function onBeforeDelete() {
 		$log = MockDataLog::get()->filter(array(
 			"RecordClass" => $this->owner->ClassName,

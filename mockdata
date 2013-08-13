@@ -102,7 +102,7 @@ function run_process($cmd)
 
 
 $help = "
-	Usage: mockdata <generate|populate>
+	Usage: mockdata <generate|populate|cleanup>
 	Options:
 	\t-count\t\t\t\tThe number of records to create
 	\t-relation-limit\t\t\tThe number of related records to create when relations are enabled
@@ -123,11 +123,17 @@ if(!$framework_dir = switch_to_project_root()) {
 
 $PARAMS = parse_parameters();
 
-if(!isset($PARAMS[1]) || !in_array($PARAMS[1], array('generate','populate','help'))) {
+if(!isset($PARAMS[1]) || !in_array($PARAMS[1], array('generate','populate','cleanup','help'))) {
 	die($help);
 }
+
 if(!isset($PARAMS[2])) {
-	die($help);
+  if($PARAMS[1] == "cleanup") {
+    $PARAMS[2] = "__all__";
+  }
+  else {
+    die($help);
+  }
 }
 
 $operation = $PARAMS[1];

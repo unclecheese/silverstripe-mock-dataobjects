@@ -13,10 +13,14 @@ class MockDataGenerator implements GridField_HTMLProvider, GridField_DataManipul
 		$forTemplate->CountField = TextField::create('mockdata[Count]','','10')
 			->setAttribute('maxlength', 2)
 			->setAttribute('size', 2);
-		$forTemplate->RelationsField = new CheckboxField('mockdata[IncludeRelations]','', true);
+		$forTemplate->RelationsField = new CheckboxField('mockdata[IncludeRelations]','', false);
 		$forTemplate->DownloadsField = new CheckboxField('mockdata[DownloadImages]','', false);
+		$forTemplate->Cancel = GridField_FormAction::create($gridField, 'cancel', _t('MockData.CANCEL','Cancel'), 'cancel', null)
+					->setAttribute('id', 'action_mockdata_cancel' . $gridField->getModelClass())
+					->addExtraClass('mock-data-generator-btn cancel');										
+
 		$forTemplate->Action = GridField_FormAction::create($gridField, 'mockdata', _t('MockData.CREATE','Create'), 'mockdata', null)
-					->addExtraClass('mock-data-generator-btn')					
+					->addExtraClass('mock-data-generator-btn create ss-ui-action-constructive')					
 					->setAttribute('id', 'action_mockdata_' . $gridField->getModelClass());
 
 		return array(
@@ -28,7 +32,21 @@ class MockDataGenerator implements GridField_HTMLProvider, GridField_DataManipul
 
 
 	public function getManipulatedData(GridField $gridField, SS_List $dataList) {
+		$state = $gridField->State->MockDataGenerator;
+		$count = (string) $state->Count;
+		if(!$count) return $dataList;
+		$generator = new MockDataBuilder($gridField->getModelClass());
+		$ids = $generator
+			->setCount($count)
+			->setIncludeRelations($state->IncludeRelations)
+			->setDownloadImages($state->DownloadImages)
+			->generate();
 
+		foreach($ids as $id) {
+			$dataList->add($id);
+		}
+
+		return $dataList;
 	}
 
 
@@ -60,6 +78,11 @@ class MockDataGenerator implements GridField_HTMLProvider, GridField_DataManipul
 	 * @param Array All form data
 	 */
 	public function handleAction(GridField $gridField, $actionName, $arguments, $data) {
+		if($actionName !== "mockdata") return;
+		$state = $gridField->State->MockDataGenerator;
+		$state->Count = $data['mockdata']['Count'];
+		$state->IncludeRelations = isset($data['mockdata']['IncludeRelations']);
+		$state->DownloadImages = isset($data['mockdata']['DownloadImages']);		
 
 	}
 

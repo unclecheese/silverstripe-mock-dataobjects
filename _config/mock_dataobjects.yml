@@ -1,13 +1,16 @@
 ---
 Name: mockdataobjects
+Only:
+  environment: dev
 ---
-DBField:
-  extensions:
-    - MockDBField
 
 DataObject:
   extensions:
     - MockDataObject
+
+DBField:
+  extensions:
+    - MockDBField
 
 MockDataObject:
   fill_options:

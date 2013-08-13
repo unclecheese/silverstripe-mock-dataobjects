@@ -1,15 +1,48 @@
 <?php
 
 
+/**
+ * Displays a page for creating mock children in the CMS
+ *
+ * @package silverstripe-mock-dataobjects
+ * @author Uncle Cheese <unclecheese@leftandmain.com>
+ */
 class MockChildrenController extends CMSMain {
 
 
+	/**
+	 * @var string
+	 */
 	private static $url_segment = 'pages/addmockchildren';
+
+
+	/**
+	 * @var string
+	 */
 	private static $url_rule = '/$Action/$ID/$OtherID';
+
+
+	/**
+	 * @var int
+	 */
 	private static $url_priority = 50;
+
+
+	/**
+	 * @var string
+	 */
 	private static $menu_title = 'Add mock children';
+
+
+	/**
+	 * @var string
+	 */
 	private static $required_permission_codes = 'CMS_ACCESS_CMSMain';
 
+	
+	/**
+	 * @var array
+	 */
 	private static $allowed_actions = array(
 		'MockChildrenForm',
 		'doAddMockChildren',
@@ -18,13 +51,24 @@ class MockChildrenController extends CMSMain {
 
 
 
-
-
+	/**
+	 * The default action to show the page. Accepts the ID of the page in the ID param
+	 *
+	 * @param SS_HTTPRequest
+	 * @return SSViewer
+	 */
 	public function node(SS_HTTPRequest $r) {
 		return $this->getResponseNegotiator()->respond($r);
 	}
 
-	function MockChildrenForm() {
+
+
+	/**
+	 * Builds the form for creating mock children.
+	 *
+	 * @return CMSForm
+	 */
+	public function MockChildrenForm() {
 		$pageTypes = array();
 		$parentID = $this->request->param('ID') ?: $this->request->requestVar('ID');
 		$parentPage = SiteTree::get()->byID((int) $parentID);
@@ -92,6 +136,14 @@ class MockChildrenController extends CMSMain {
 	}
 
 
+
+	/**
+	 * Handles the creation of mock children with {@link MockDataBuilder}
+	 *
+	 * @param array $data The data passed in from the form
+	 * @param CMSForm $form The Form object that was used
+	 * @return SSViewer
+	 */
 	public function doAddMockChildren($data, $form) {
 		$parentPage = SiteTree::get()->byID((int) $data['ID']);
 		if(!$parentPage) return false;
@@ -116,9 +168,7 @@ class MockChildrenController extends CMSMain {
 			_t('MockData.CREATESUCCESS','Created {count} mock children under {title}',array('count' => $data['Count'], 'title' => $parentPage->Title))
 		);
 		$this->redirect(Controller::join_links(singleton('CMSPagesController')->Link()));		
-		return $this->getResponseNegotiator()->respond($this->request);
-
-
-				
+		
+		return $this->getResponseNegotiator()->respond($this->request);		
 	}
 }

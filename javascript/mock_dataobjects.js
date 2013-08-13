@@ -8,7 +8,7 @@ $.entwine('ss.tree', function($){
 			config.contextmenu.items = function(node) {				
 				items = itemsFunction(node);
 				items['addmockchildren'] = {
-					'label': 'Add mock children',
+					'label': ss.i18n._t('MockData.AddMockChildren', 'Add mock children'),
 					'action': function(obj) {
 						var url = self.data('urlDuplicate').replace('/duplicate','/addmockchildren/node');
 						$('.cms-container').entwine('.ss').loadPanel(ss.i18n.sprintf(
@@ -74,11 +74,19 @@ $.entwine('ss', function($) {
 	$('.mockdata-generator-toggle-btn a').entwine({
 
 		onclick: function(e) {
+			e.preventDefault();
+			this.hide();
+			$('.mockdata-generator-options').slideDown();
+		}
+	});
+
+	$('.mockdata-generator-options button.cancel').entwine({
+
+		onclick: function(e) {
 			e.preventDefault();			
-			$('.mockdata-generator-options').slideToggle();
-			var newText = this.data('toggletext');
-			this.data('toggletext', this.text());
-			this.text(newText);
+			$('.mockdata-generator-options').slideUp(function() {
+				$('.mockdata-generator-toggle-btn a').show();
+			});
 		}
 	})
 });
