@@ -120,12 +120,11 @@ class MockDataObject extends DataExtension {
 		$db = $this->owner->db();
 
 		foreach($db as $fieldName => $fieldType) {			
+
 			if(in_array($fieldName, $omit)) continue;
 			if($settings['only_empty'] && $this->owner->obj($fieldName)->exists()) continue;
-			
 			$value = $this->owner->obj($fieldName)->getFakeData($faker);
-			$this->owner->$fieldName = $value;
-
+			$this->owner->setField($fieldName, $value);			
 		}
 
 
@@ -210,7 +209,7 @@ class MockDataObject extends DataExtension {
 		$log->RecordClass = $this->owner->ClassName;
 		$log->RecordID = $this->owner->ID;
 		$log->write();
-
+		
 		return $this->owner;
 
 	}

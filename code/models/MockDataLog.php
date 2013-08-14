@@ -1,6 +1,13 @@
 <?php
 
 
+/**
+ * Defines a database record of a mock data creation. Has references to the class 
+ * of data created and its ID.
+ *
+ * @package silverstripe-mock-dataobjects
+ * @author Uncle Cheese <unclecheese@leftandmain.com>
+ */
 class MockDataLog extends DataObject {
 
 
@@ -16,23 +23,4 @@ class MockDataLog extends DataObject {
 		'RecordID' => true
 	);
 
-
-
-	private static $summary_fields = array (
-		'RecordClass' => 'Type',
-		'NumberOfRecords' => 'Number of records'
-	);
-
-
-	private static $searchable_fields = array (
-		'RecordClass'
-	);
-
-
-
-	public function getNumberOfRecords() {
-		return MockDataLog::get()->filter(array(
-			'RecordClass' => $this->RecordClass
-		))->count();
-	}
 }

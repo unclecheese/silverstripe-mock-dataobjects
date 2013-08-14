@@ -1,21 +1,51 @@
 <?php
 
 
-
+/**
+ * Defines the task that creates, populates, or cleans up mock data.
+ *
+ * ex:
+ * /dev/tasks/MockDataTask?args[]=generate&args[]=MyDataObject&count=10
+ * /dev/tasks/MockDataTask?args[]=cleanup&args[]=MyDataObject
+ *
+ * For command line usage, use the "mockdata" executable contained in the root
+ * of the module directory.
+ *
+ * mockdata generate MyDataObject -count 10
+ * mockdata populate MyDataObject --no-downloads
+ * mockdata cleanup
+ *
+ * @package silverstripe-mock-dataobjects
+ * @author Uncle Cheese <unclecheese@leftandmain.com>
+ */
 class MockDataTask extends BuildTask {
 
 
+	/**
+	 * @var string The title of the task
+	 */
 	protected $title = "Generate or populate records with mock data";
 
 
 
+	/**
+	 * @var SS_HTTPRequest
+	 */
 	protected $request;
 
 
 
+	/**
+	 * Runs the task
+	 *
+	 * @param SS_HTTPRequest
+	 */
 	public function run($request) {		
 		$this->request = $request;
 		$args = $request->getVar('args');
+
+		// The "cleanup" task has a different argument signature. Because it doesn't require the specification of a class.
+		// This block normalizes that.
 		if($args[0] == "cleanup") {
 			if(!isset($args[1])) {
 				$args[1] = "__all__";
@@ -51,6 +81,13 @@ class MockDataTask extends BuildTask {
 
 
 
+	/**
+	 * Runs a command on the {@link MockDataBuilder} object using options
+	 * defined in the request.
+	 *
+	 * @param string The command to run
+	 * @param string The class to create or update
+	 */
 	protected function runBuilderCommand($cmd, $className) {
 		$count = $this->request->getVar('count') ?: 10;
 		$parent = $this->request->getVar('parent');
@@ -83,7 +120,11 @@ class MockDataTask extends BuildTask {
 
 
 
-
+	/**
+	 * Deletes mock data records using references in {@link MockDataLog}
+	 *
+	 * @param string The class of records to delete
+	 */
 	protected function cleanup($className) {
 		$classes = ($className == "__all__") ? MockDataLog::get()->column('RecordClass') : array($className);
 		foreach($classes as $recordClass) {
@@ -99,8 +140,11 @@ class MockDataTask extends BuildTask {
 
 
 
-
-
+	/**
+	 * Present an error to the client
+	 *
+	 * @param string The error message
+	 */
 	protected function showError($msg) {
 		echo $msg."\n\n";
 		die();
@@ -109,6 +153,11 @@ class MockDataTask extends BuildTask {
 
 
 
+	/**
+	 * Present a message to the client
+	 *
+	 * @param string The message
+	 */
 	protected function writeOut($msg) {
 		echo $msg."\n";		
 	}

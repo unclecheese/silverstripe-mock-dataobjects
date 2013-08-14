@@ -1,10 +1,26 @@
 <?php
 
+/**
+ * Defines the methods that are injected into the {@link Varchar} class for
+ * generating mock data
+ *
+ * @package silverstripe-mock-data
+ * @author Uncle Cheese <unclecheese@leftandmain.com>
+ */
+
 use Faker\Generator;
 
 
 class MockVarcharField extends DataExtension {
 
+
+	/**
+	 * Gets a random text value. Tries a number of hooks to determine what type of text
+	 * to generate, e.g. a person's name, an address, email, URL, etc.
+	 *
+	 * @param Faker\Generator
+	 * @return string
+	 */
 	public function getFakeData(Generator $faker) {
 		$candidates = array (
 			'firstName',

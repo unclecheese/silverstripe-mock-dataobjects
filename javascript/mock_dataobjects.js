@@ -1,5 +1,7 @@
 (function($) {	
 $.entwine('ss.tree', function($){
+
+	// Add the context link to the site tree
 	$('.cms .cms-tree').entwine({
 		getTreeConfig: function() {
 			var self = this;
@@ -24,6 +26,8 @@ $.entwine('ss.tree', function($){
 		},
 
 
+		// After creating mock children, get the tree of the parent, run through all of its IDs, and refresh the tree
+		// Todo: This is inefficient. It should only update the new records, not the whole parent node.
 		'from .cms-container': {
 
 			onafterstatechange: function(e){								
@@ -56,13 +60,13 @@ $.entwine('ss.tree', function($){
 
 $.entwine('ss', function($) {
 
-
+	// Store the ID of the parent node used in the "add mock children" form
 	$('.cms .cms-container').entwine({
 		MockChildrenID: null
 	});
 
 	
-
+	// Set the stored value of the mock children parent
 	$('#Form_MockChildrenForm').entwine({
 		onmatch: function() {
 			var id = this.find(':input[name=ID]').val();
@@ -71,6 +75,7 @@ $.entwine('ss', function($) {
 	});
 
 
+	// These events add functionality to the GridField component
 	$('.mockdata-generator-toggle-btn a').entwine({
 
 		onclick: function(e) {

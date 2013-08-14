@@ -1,9 +1,23 @@
 <?php
 
 
+/**
+ * Defines the component for {@link GridField} that allows for populating the record set
+ * with mock records.
+ *
+ * @package silverstripe-mock-dataobjects
+ * @author Uncle Cheese <unclecheese@leftandmain.com>
+ */
 class MockDataGenerator implements GridField_HTMLProvider, GridField_DataManipulator, GridField_ActionProvider {
 
 
+
+	/**
+	 * Adds the HTML to the GridField that includes options for the mock data as well as the action button
+	 *
+	 * @param GridField
+	 * @return array
+	 */
 	public function getHTMLFragments($gridField) {
 		Requirements::javascript(MOCK_DATAOBJECTS_DIR.'/javascript/mock_dataobjects.js');
 		Requirements::css(MOCK_DATAOBJECTS_DIR.'/css/mock_dataobjects.css');
@@ -31,6 +45,14 @@ class MockDataGenerator implements GridField_HTMLProvider, GridField_DataManipul
 	}
 
 
+
+	/**
+	 * Adds the records to the database and returns a new {@link DataList}
+	 *
+	 * @param GridField
+	 * @param SS_List
+	 * @return SS_List
+	 */
 	public function getManipulatedData(GridField $gridField, SS_List $dataList) {
 		$state = $gridField->State->MockDataGenerator;
 		$count = (string) $state->Count;
@@ -53,25 +75,19 @@ class MockDataGenerator implements GridField_HTMLProvider, GridField_DataManipul
 	/**
 	 * Return a list of the actions handled by this action provider.
 	 *
-	 * Used to identify the action later on through the $actionName parameter 
-	 * in {@link handleAction}.
-	 *
-	 * There is no namespacing on these actions, so you need to ensure that 
-	 * they don't conflict with other components.
-	 * 
 	 * @param GridField
 	 * @return Array with action identifier strings. 
 	 */
 	public function getActions($gridField) {
 		return array ('mockdata');
 	}
+
+
+
 	
 	/**
 	 * Handle an action on the given {@link GridField}.
 	 *
-	 * Calls ALL components for every action handled, so the component needs 
-	 * to ensure it only accepts actions it is actually supposed to handle.
-	 * 
 	 * @param GridField
 	 * @param String Action identifier, see {@link getActions()}.
 	 * @param Array Arguments relevant for this 
@@ -85,9 +101,4 @@ class MockDataGenerator implements GridField_HTMLProvider, GridField_DataManipul
 		$state->DownloadImages = isset($data['mockdata']['DownloadImages']);		
 
 	}
-
-
-
-
-
 }
