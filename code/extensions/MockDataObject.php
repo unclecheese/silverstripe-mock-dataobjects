@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 
 /**
@@ -21,7 +21,7 @@ class MockDataObject extends DataExtension {
 	}
 
 
-	
+
 	/**
 	 * An accessor to get the folder where all of the stock files are stored
 	 *
@@ -36,13 +36,13 @@ class MockDataObject extends DataExtension {
 	/**
 	 * Copies stock files from the module directory to the filesytem and updates the database.
 	 */
-	public static function install_mock_files() {        
+	public static function install_mock_files() {
         $sample_path = Director::baseFolder().'/'.MOCK_DATAOBJECTS_DIR.'/lib';
         $sample_files = glob($sample_path.'/*.jpeg');
         $folder = self::get_mock_folder();
-        $installed_sample_files = self::get_mock_files();                        
+        $installed_sample_files = self::get_mock_files();
         if(sizeof($sample_files) <= $installed_sample_files->count()) return;
-        
+
         foreach($sample_files as $file) {
         	copy($file, $folder->getFullPath().basename($file));
         }
@@ -62,9 +62,9 @@ class MockDataObject extends DataExtension {
 		$img_filename = "mock-file-".uniqid().".jpeg";
 
 		$img = self::get_mock_folder()->getFullPath().$img_filename;
-		
-		if(ini_get('allow_url_fopen')) {									
-			file_put_contents($img, file_get_contents($url));			
+
+		if(ini_get('allow_url_fopen')) {
+			file_put_contents($img, file_get_contents($url));
 		}
 		else {
 			$ch = curl_init($url);
@@ -73,7 +73,7 @@ class MockDataObject extends DataExtension {
 			curl_setopt($ch, CURLOPT_HEADER, 0);
 			curl_exec($ch);
 			curl_close($ch);
-			fclose($fp);			
+			fclose($fp);
 		}
 
 		if(!file_exists($img) || !filesize($img)) return false;
@@ -82,7 +82,7 @@ class MockDataObject extends DataExtension {
 		$i->Filename = self::get_mock_folder()->Filename.$img_filename;
 		$i->Title = $img_filename;
 		$i->Name = $img_filename;
-		$i->ParentID = self::get_mock_folder()->ID;		
+		$i->ParentID = self::get_mock_folder()->ID;
 		$i->write();
 
 		return $i;
@@ -109,7 +109,7 @@ class MockDataObject extends DataExtension {
 		$defaults = Config::inst()->get("MockDataObject", "fill_options");
 		$create_limit = Config::inst()->get("MockDataObject", "relation_create_limit");
 		$settings = array_merge($defaults, $config);
-		
+
 		// Anything that is a core SiteTree field, e.g. "URLSegment", "ShowInMenus", "ParentID",  we don't care about.
 		$omit = Injector::inst()->get("SiteTree")->db();
 
@@ -119,12 +119,12 @@ class MockDataObject extends DataExtension {
 
 		$db = $this->owner->db();
 
-		foreach($db as $fieldName => $fieldType) {			
+		foreach($db as $fieldName => $fieldType) {
 
 			if(in_array($fieldName, $omit)) continue;
 			if($settings['only_empty'] && $this->owner->obj($fieldName)->exists()) continue;
 			$value = $this->owner->obj($fieldName)->getFakeData($faker);
-			$this->owner->setField($fieldName, $value);			
+			$this->owner->setField($fieldName, $value);
 		}
 
 
@@ -134,24 +134,24 @@ class MockDataObject extends DataExtension {
 			if($sitetree && $relation == "Parent") continue;
 			$create_limit = Config::inst()->get("MockDataObject","relation_create_limit");
 
-			if( ($className == "File") || (is_subclass_of($className, "File"))) {				
+			if( ($className == "File") || (is_subclass_of($className, "File"))) {
 				if($settings['only_empty'] && $this->owner->$relation()->exists()) continue;
 				if($settings['download_images']) {
 					if($image = self::download_lorem_image()) {
 						$this->owner->$idField = $image->ID;
 					}
 				}
-				else {					
+				else {
 					self::install_mock_files();
 					if($random_file = self::get_mock_files()->sort("RAND()")->first()) {
 						$this->owner->$idField = $random_file->ID;
 					}
-				}				
+				}
 			}
 			else {
 				$random_record = DataList::create($className)->sort("RAND()")->first();
-				if(!$random_record && !$sitetree) {		
-					$i = 0;					
+				if(!$random_record && !$sitetree) {
+					$i = 0;
 					while($i <= $create_limit) {
 						$r = new $className();
 						$r->fill();
@@ -179,15 +179,15 @@ class MockDataObject extends DataExtension {
 				$i = 0;
 				while($i <= $count) {
 					$r = new $className();
-					$r->fill();					
+					$r->fill();
 					$r->$idField = $this->owner->ID;
 					$r->write();
 					$i++;
 				}
 			}
-			
+
 			foreach($this->owner->many_many() as $relation => $className) {
-				if(in_array($relation, $skip)) continue;			
+				if(in_array($relation, $skip)) continue;
 				$records = DataList::create($className)->limit($create_limit);
 				$diff = $records->count() - $create_limit;
 				while($diff < 0) {
@@ -209,7 +209,7 @@ class MockDataObject extends DataExtension {
 		$log->RecordClass = $this->owner->ClassName;
 		$log->RecordID = $this->owner->ID;
 		$log->write();
-		
+
 		return $this->owner;
 
 	}

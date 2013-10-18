@@ -151,6 +151,6 @@ $args[] = isset($PARAMS['relation-limit']) ? "--relationCreateLimit=".$PARAMS['r
 $args[] = isset($PARAMS['overwrite']) ? "--onlyEmpty=false" : "";
 
 $arguments = implode(" ", $args);
-$cmd = $framework_dir . "/sake dev/tasks/MockDataTask $operation $className $arguments";
+$cmd = $framework_dir . "/sake dev/tasks/MockDataTask $operation $className $arguments  --flush=all";
 run_process($cmd);
 echo "\n\n";

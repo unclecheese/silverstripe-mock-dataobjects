@@ -84,7 +84,7 @@ class MockDataBuilder extends Object {
 	/**
 	 * @var bool If the subject class is a SiteTree descendant
 	 */
-	protected $isSiteTree = false;	
+	protected $isSiteTree = false;
 
 
 
@@ -121,7 +121,7 @@ class MockDataBuilder extends Object {
 			$this->determineParentObj();
 		}
 
-		
+
 		$i = 0;
 		$ids = array ();
 		$parentField = $this->parentField;
@@ -133,7 +133,7 @@ class MockDataBuilder extends Object {
 				'download_images' => $this->downloadImages,
 				'relation_create_limit' => $this->relationCreateLimit
 			));
-			if($this->parentObj) {				
+			if($this->parentObj) {
 				$obj->$parentField = $this->parentObj->ID;
 			}
 			if($this->isSiteTree) {
@@ -178,7 +178,7 @@ class MockDataBuilder extends Object {
 			}
 
 			$this->log("Updated {$this->subjectClass} \"{$obj->getTitle()}\".");
-		}		
+		}
 	}
 
 
@@ -199,12 +199,12 @@ class MockDataBuilder extends Object {
 		if(!$parentPage) {
 			throw new Exception("Could not find a page with ID, URLSegment, or Title \"$parent\"");
 		}
-		if(!Injector::inst()->get($this->subjectClass)->hasField($this->parentField)) {			
+		if(!Injector::inst()->get($this->subjectClass)->hasField($this->parentField)) {
 			throw new Exception("{$this->subjectClass} has no field {$this->parentField}.");
 		}
 
 		$this->parentObj = $parentPage;
-		$this->log("Parent page is #{$parentPage->ID} {$parentPage->getTitle()}");			
+		$this->log("Parent page is #{$parentPage->ID} {$parentPage->getTitle()}");
 
 	}
 
@@ -257,7 +257,7 @@ class MockDataBuilder extends Object {
 	 */
 	public function setCount($count) {
 		$this->count = $count;
-		return $this;		
+		return $this;
 	}
 
 
@@ -280,7 +280,7 @@ class MockDataBuilder extends Object {
 	 *
 	 * @param string The field name
 	 * @param MockDataBuilder
-	 */	
+	 */
 	public function setRelationCreateLimit($num) {
 		$this->relationCreateLimit = $num;
 		return $this;
@@ -317,14 +317,14 @@ class MockDataBuilder extends Object {
 	/**
 	 * Logs a message. Either output to console or store internally
 	 *
-	 * @param string The message	 
+	 * @param string The message
 	 */
 	protected function log($msg) {
 		if(Director::is_cli()) {
 			echo "$msg\n";
 		}
 		else {
-			$this->log[] = $msg;	
+			$this->log[] = $msg;
 		}
 	}
 

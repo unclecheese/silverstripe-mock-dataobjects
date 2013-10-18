@@ -40,7 +40,7 @@ class MockDataTask extends BuildTask {
 	 *
 	 * @param SS_HTTPRequest
 	 */
-	public function run($request) {		
+	public function run($request) {
 		$this->request = $request;
 		$args = $request->getVar('args');
 
@@ -52,9 +52,9 @@ class MockDataTask extends BuildTask {
 			}
 			if($args[1] != "__all__") {
 				if(!class_exists($args[1]) || !is_subclass_of($args[1], "DataObject")) {
-					$this->showError("Please specify a valid DataObject descendant class.");				
+					$this->showError("Please specify a valid DataObject descendant class.");
 				}
-			}	
+			}
 
 			return $this->cleanup($args[1]);
 		}
@@ -115,7 +115,7 @@ class MockDataTask extends BuildTask {
 		catch(Exception $e) {
 			echo $e->getMessage()."\n\n";
 			die();
-		}		
+		}
 	}
 
 
@@ -159,6 +159,6 @@ class MockDataTask extends BuildTask {
 	 * @param string The message
 	 */
 	protected function writeOut($msg) {
-		echo $msg."\n";		
+		echo $msg."\n";
 	}
 }
