@@ -9,6 +9,8 @@ DataObject:
 DBField:
   extensions:
     - MockDBField
+MockDBField:
+  default_lang: en
 
 MockDataObject:
   fill_options:
@@ -33,4 +35,6 @@ Before: betterbuttons
 GridFieldDetailForm_ItemRequest:
   extensions:
     - MockDataGridFieldItemRequest
-
+LeftAndMain:
+  extra_requirements_javascript:
+    - silverstripe-mock-dataobjects/javascript/mock_dataobjects.js

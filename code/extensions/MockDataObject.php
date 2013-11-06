@@ -105,7 +105,7 @@ class MockDataObject extends DataExtension {
 	 * @return DataObject
 	 */
 	public function fill($config = array ()) {
-		$faker = Faker\Factory::create();
+		$faker = Faker\Factory::create(i18n::get_locale());
 		$defaults = Config::inst()->get("MockDataObject", "fill_options");
 		$create_limit = Config::inst()->get("MockDataObject", "relation_create_limit");
 		$settings = array_merge($defaults, $config);

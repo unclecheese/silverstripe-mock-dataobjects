@@ -13,7 +13,7 @@ use Faker\Generator;
 
 class MockDBField extends DataExtension {
 
-	
+
 	/**
 	 * Ensures that every DBField can have getFakeData() called on it. Future proofing.
 	 *
@@ -42,12 +42,25 @@ class MockDBField extends DataExtension {
 	 * @return boolean
 	 */
 	public function hook($name) {
-		if($list = _t('MockDataObject.'.$name)) {
+		$list = false;
+		$current_locale = i18n::get_locale();
+		$default_lang = Config::inst()->forClass("MockDBField")->default_lang;
+		$default_locale = i18n::get_locale_from_lang($default_lang);
+
+		i18n::set_locale($default_locale);
+		$core_list = _t('MockDataObject.'.$name);
+
+		i18n::set_locale($current_locale);
+		$user_list = _t('MockDataObject.'.$name);
+
+		$list = $user_list ?: $core_list;
+
+		if($list) {
 			$candidates = explode(",",$list);
 			$fieldName = $this->owner->getName();
 			foreach($candidates as $c) {
-				$c = trim($c);				
-				if(preg_match('/^'.$c.'[A-Z0-9]*/', $fieldName) || preg_match('/'.$c.'$/', $fieldName)) {					
+				$c = trim($c);
+				if(preg_match('/^'.$c.'[A-Z0-9]*/', $fieldName) || preg_match('/'.$c.'$/', $fieldName)) {
 					return true;
 				}
 			}

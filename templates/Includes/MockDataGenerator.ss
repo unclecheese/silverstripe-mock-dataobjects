@@ -3,12 +3,12 @@
 </div>
 <div style="clear:both;margin:0;"></div>
 <div style="display:none;" class="mockdata-generator-options">
-	<div class="mockdata-options-left"><%t MockData.CREATE 'Create' %> $CountField <%t MockData.MOCKRECORDS 'mock records' %></div> 
+	<div class="mockdata-options-left"><%t MockData.CREATE 'Create' %> $CountField <%t MockData.MOCKRECORDS 'mock records' %></div>
 	<div class="mockdata-options-right">
-		$RelationsField <label for="mockdata-IncludeRelations"><%t MockData.INCLUDERELATIONS 'Include relations' %></label>
-		$DownloadsField <label for="mockdata-DownloadImages"><%t MockData.DOWNLOADFILES 'Download mock files' %></label>
+		$RelationsField <label for="mockdata_IncludeRelations"><%t MockData.INCLUDERELATIONS 'Include relations' %></label>
+		$DownloadsField <label for="mockdata_DownloadImages"><%t MockData.DOWNLOADFILES 'Download mock files' %></label>
 		$Cancel.Field
 		$Action.Field
 	</div>
-	<div style="clear:both;margin:0;"></div>	
+	<div style="clear:both;margin:0;"></div>
 </div>

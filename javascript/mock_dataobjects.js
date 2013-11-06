@@ -1,13 +1,13 @@
-(function($) {	
+(function($) {
 $.entwine('ss.tree', function($){
 
 	// Add the context link to the site tree
 	$('.cms .cms-tree').entwine({
 		getTreeConfig: function() {
 			var self = this;
-			var config = this._super();			
+			var config = this._super();
 			var itemsFunction = config.contextmenu.items;
-			config.contextmenu.items = function(node) {				
+			config.contextmenu.items = function(node) {
 				items = itemsFunction(node);
 				items['addmockchildren'] = {
 					'label': ss.i18n._t('MockData.AddMockChildren', 'Add mock children'),
@@ -30,8 +30,8 @@ $.entwine('ss.tree', function($){
 		// Todo: This is inefficient. It should only update the new records, not the whole parent node.
 		'from .cms-container': {
 
-			onafterstatechange: function(e){								
-				if(id = $('.cms-container').entwine('.ss').getMockChildrenID()) {					
+			onafterstatechange: function(e){
+				if(id = $('.cms-container').entwine('.ss').getMockChildrenID()) {
 					var self = this;
 					$.ajax({
 						url: self.data('urlTree'),
@@ -42,15 +42,15 @@ $.entwine('ss.tree', function($){
 							var $html = $("<ul>"+data+"</ul>");
 							$html.find('li').each(function() {
 								ids.push($(this).data('id'));
-							});							
+							});
 							self.updateNodesFromServer(ids);
 							$('.cms-container').entwine('.ss').setMockChildrenID(null)
 						}
 					});
 				}
-				else {						
+				else {
 					this.updateFromEditForm();
-				}					
+				}
 			}
 		}
 	});
@@ -65,12 +65,12 @@ $.entwine('ss', function($) {
 		MockChildrenID: null
 	});
 
-	
+
 	// Set the stored value of the mock children parent
 	$('#Form_MockChildrenForm').entwine({
 		onmatch: function() {
 			var id = this.find(':input[name=ID]').val();
-			$('.cms-container').setMockChildrenID(id);			
+			$('.cms-container').setMockChildrenID(id);
 		}
 	});
 
@@ -88,11 +88,21 @@ $.entwine('ss', function($) {
 	$('.mockdata-generator-options button.cancel').entwine({
 
 		onclick: function(e) {
-			e.preventDefault();			
+			e.preventDefault();
 			$('.mockdata-generator-options').slideUp(function() {
 				$('.mockdata-generator-toggle-btn a').show();
 			});
 		}
-	})
+	});
+
+	$('.mockdata-generator-options :text').entwine({
+
+		onkeyup: function(e) {
+			if(e.which == 13) {
+				e.preventDefault();
+				this.closest("form").find(".mock-data-generator-btn.create").click();
+			}
+		}
+	});
 });
 })(jQuery);

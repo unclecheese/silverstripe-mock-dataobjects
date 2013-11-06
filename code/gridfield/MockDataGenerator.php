@@ -31,10 +31,10 @@ class MockDataGenerator implements GridField_HTMLProvider, GridField_DataManipul
 		$forTemplate->DownloadsField = new CheckboxField('mockdata[DownloadImages]','', false);
 		$forTemplate->Cancel = GridField_FormAction::create($gridField, 'cancel', _t('MockData.CANCEL','Cancel'), 'cancel', null)
 					->setAttribute('id', 'action_mockdata_cancel' . $gridField->getModelClass())
-					->addExtraClass('mock-data-generator-btn cancel');										
+					->addExtraClass('mock-data-generator-btn cancel');
 
 		$forTemplate->Action = GridField_FormAction::create($gridField, 'mockdata', _t('MockData.CREATE','Create'), 'mockdata', null)
-					->addExtraClass('mock-data-generator-btn create ss-ui-action-constructive')					
+					->addExtraClass('mock-data-generator-btn create ss-ui-action-constructive')
 					->setAttribute('id', 'action_mockdata_' . $gridField->getModelClass());
 
 		return array(
@@ -61,7 +61,7 @@ class MockDataGenerator implements GridField_HTMLProvider, GridField_DataManipul
 		$ids = $generator
 			->setCount($count)
 			->setIncludeRelations($state->IncludeRelations)
-			->setDownloadImages($state->DownloadImages)
+			->setDownloadImages($state->DownloadImages === true)
 			->generate();
 
 		foreach($ids as $id) {
@@ -76,7 +76,7 @@ class MockDataGenerator implements GridField_HTMLProvider, GridField_DataManipul
 	 * Return a list of the actions handled by this action provider.
 	 *
 	 * @param GridField
-	 * @return Array with action identifier strings. 
+	 * @return Array with action identifier strings.
 	 */
 	public function getActions($gridField) {
 		return array ('mockdata');
@@ -84,13 +84,13 @@ class MockDataGenerator implements GridField_HTMLProvider, GridField_DataManipul
 
 
 
-	
+
 	/**
 	 * Handle an action on the given {@link GridField}.
 	 *
 	 * @param GridField
 	 * @param String Action identifier, see {@link getActions()}.
-	 * @param Array Arguments relevant for this 
+	 * @param Array Arguments relevant for this
 	 * @param Array All form data
 	 */
 	public function handleAction(GridField $gridField, $actionName, $arguments, $data) {
@@ -98,7 +98,7 @@ class MockDataGenerator implements GridField_HTMLProvider, GridField_DataManipul
 		$state = $gridField->State->MockDataGenerator;
 		$state->Count = $data['mockdata']['Count'];
 		$state->IncludeRelations = isset($data['mockdata']['IncludeRelations']);
-		$state->DownloadImages = isset($data['mockdata']['DownloadImages']);		
+		$state->DownloadImages = isset($data['mockdata']['DownloadImages']);
 
 	}
 }
