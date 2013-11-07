@@ -18,9 +18,9 @@
 
     },
     "extra": {
-	"installer-name": "mock_dataobjects"
+	"installer-name": "silverstripe-mock-dataobjects"
     },
     "replace": {
     	"silverstripe/mock-dataobjects": "*"
-    }    
+    }
 }
