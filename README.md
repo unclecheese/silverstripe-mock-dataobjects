@@ -2,6 +2,13 @@
 
 This module provides intelligent content generation functionality to all DataObjects. The object introspects its fields and assigns an example value based on the field type and the name of the field. It also provides a command line utility for generating mock data programatically as well as various UI features in the CMS to support the creating and populating DataObjects.
 
+## Installation
+Installation via Composer is highly recommended, as this module has external dependencies.
+
+```
+composer require unclecheese/mock-dataobjects:dev-master
+```
+
 ## Example
 ```php
 class StaffMember extends DataObject {
