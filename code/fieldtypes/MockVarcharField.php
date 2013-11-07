@@ -15,13 +15,28 @@ class MockVarcharField extends DataExtension {
 
 
 	/**
-	 * Gets a random text value. Tries a number of hooks to determine what type of text
-	 * to generate, e.g. a person's name, an address, email, URL, etc.
+	 * Gets a random text value.
 	 *
 	 * @param Faker\Generator
 	 * @return string
 	 */
 	public function getFakeData(Generator $faker) {
+		if($data = $this->getDataByFieldName($faker)) {
+			return $data;
+		}
+
+		return $faker->sentence(rand(2,5));
+	}
+
+
+
+	/**
+	 * Tries a number of hooks to determine what type of text
+	 * to generate, e.g. a person's name, an address, email, URL, etc.
+	 * @param  Generator $faker
+	 * @return mixed
+	 */
+	public function getDataByFieldName(Generator $faker) {
 		$candidates = array (
 			'firstName',
 			'lastName',
@@ -43,7 +58,7 @@ class MockVarcharField extends DataExtension {
 			return $faker->name;
 		}
 
-		return $faker->sentence(rand(2,5));
 
+		return false;
 	}
 }

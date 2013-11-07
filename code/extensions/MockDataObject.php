@@ -12,6 +12,14 @@ class MockDataObject extends DataExtension {
 
 
 	/**
+	 * Stores an instance of a {@link MockViewableData} object
+	 * @var MockViewableData
+	 */
+	protected $fakeInstance;
+
+
+
+	/**
 	 * An accessor to get all of the stock files that ship with the package
 	 *
 	 * @return DataList
@@ -91,6 +99,27 @@ class MockDataObject extends DataExtension {
 
 
 	/**
+	 * Gets a random image that already exists in the filesystem
+	 * @return File
+	 */
+	public static function get_random_local_image() {
+		self::install_mock_files();
+		return self::get_mock_files()->sort("RAND()")->first();
+	}
+
+
+
+	/**
+	 * Template accessor for {@link MockViewableData}
+	 * @return  MockViewableData
+	 */
+	public function Fake() {
+		return $this->fakeInstance ? $this->fakeInstance : ($this->fakeInstance = MockViewableData::create());
+	}
+
+
+
+	/**
 	 * Populates all of the native database fields and optionally fills in data relations.
 	 * Accepts an array of settings, ex:
 	 *
@@ -142,8 +171,7 @@ class MockDataObject extends DataExtension {
 					}
 				}
 				else {
-					self::install_mock_files();
-					if($random_file = self::get_mock_files()->sort("RAND()")->first()) {
+					if($random_file = self::get_random_local_image()) {
 						$this->owner->$idField = $random_file->ID;
 					}
 				}
