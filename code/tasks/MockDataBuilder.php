@@ -135,6 +135,7 @@ class MockDataBuilder extends Object {
 			));
 			if($this->parentObj) {
 				$obj->$parentField = $this->parentObj->ID;
+				$obj->write();
 			}
 			if($this->isSiteTree) {
 				$ids[] = $obj->write();
