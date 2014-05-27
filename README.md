@@ -42,7 +42,7 @@ $staff->fill();
 Result:
 
 
-![Screenshot](http://dashboard.unclecheeseproductions.com/mysite/images/mockdata5.png)
+![Screenshot](http://i.cubeupload.com/bvMv42.png)
 
 ## Implementation
 You can use the features of the MockDataObjects module in many ways, including executable code, a command-line interface, and from within the CMS.
@@ -52,21 +52,21 @@ You can use the features of the MockDataObjects module in many ways, including e
 
 Right click on the parent page and choose "Add mock children."
 
-![Screenshot](http://dashboard.unclecheeseproductions.com/mysite/images/mockdata1.png)
+![Screenshot](http://i.cubeupload.com/F12GDf.png)
 
 Choose options, and create
 
-![Screenshot](http://dashboard.unclecheeseproductions.com/mysite/images/mockdata2.png)
+![Screenshot](http://i.cubeupload.com/f0JaZW.png)
 
 #### Adding items to a grid
 Just click on "add mock data" and set your options.
 
-![Screenshot](http://dashboard.unclecheeseproductions.com/mysite/images/mockdata6.png)
+![Screenshot](http://i.cubeupload.com/MK0LMj.png)
 
 #### Populating existing records
 Click on "fill with mock data"
 
-![Screenshot](http://dashboard.unclecheeseproductions.com/mysite/images/mockdata4.png)
+![Screenshot](http://i.cubeupload.com/ZKnUfa.png)
 
 ### In the execution pipeline
 
