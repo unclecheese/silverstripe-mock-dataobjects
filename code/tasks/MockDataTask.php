@@ -103,7 +103,7 @@ class MockDataTask extends BuildTask {
 
 		$builder
 			->setOnlyEmpty($this->request->getVar('onlyEmpty') === "false" ? false : true)
-			->setDownloadImages($this->request->getVar('download_images') === "false" ? false : true)
+			->setDownloadImages($this->request->getVar('downloadImages') === "false" ? false : true)
 			->setCount($count)
 			->setParentIdentifier($parent ?: null)
 			->setParentField($parentField)
