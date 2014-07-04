@@ -182,7 +182,7 @@ class MockDataObject extends DataExtension {
 					$i = 0;
 					while($i <= $create_limit) {
 						$r = new $className();
-						$r->fill();
+						$r->fill($settings);
 						$r->write();
 						$random_record = $r;
 						$i++;
@@ -207,7 +207,7 @@ class MockDataObject extends DataExtension {
 				$i = 0;
 				while($i <= $count) {
 					$r = new $className();
-					$r->fill();
+					$r->fill($settings);
 					$r->$idField = $this->owner->ID;
 					$r->write();
 					$i++;
@@ -220,7 +220,7 @@ class MockDataObject extends DataExtension {
 				$diff = $records->count() - $create_limit;
 				while($diff < 0) {
 					$r = new $className();
-					$r->fill();
+					$r->fill($settings);
 					$r->write();
 					$diff++;
 				}
