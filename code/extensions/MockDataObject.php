@@ -176,6 +176,9 @@ class MockDataObject extends DataExtension {
 					}
 				}
 			}
+			else if ($className == "Subsite"){
+				continue;
+			}
 			else {
 				$random_record = DataList::create($className)->sort("RAND()")->first();
 				if(!$random_record && !$sitetree) {
