@@ -127,6 +127,9 @@ class MockDataBuilder extends Object {
 		$parentField = $this->parentField;
 		while($i < $this->count) {
 			$obj = Injector::inst()->create($this->subjectClass);
+			if($this->parentObj) {
+				$obj->$parentField = $this->parentObj->ID;
+			}
 			$obj->fill(array(
 				'only_empty' => $this->onlyEmpty,
 				'include_relations' => $this->includeRelations,
@@ -134,7 +137,6 @@ class MockDataBuilder extends Object {
 				'relation_create_limit' => $this->relationCreateLimit
 			));
 			if($this->parentObj) {
-				$obj->$parentField = $this->parentObj->ID;
 				$obj->write();
 			}
 			if($this->isSiteTree) {
