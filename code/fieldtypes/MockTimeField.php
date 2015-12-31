@@ -10,18 +10,19 @@
 
 use Faker\Generator;
 
+class MockTimeField extends DataExtension
+{
 
-class MockTimeField extends DataExtension {
 
 
-
-	/**
-	 * Gets a random time value, e.g. 14:20:22
-	 *
-	 * @param Faker\Generator
-	 * @return string
-	 */
-	public function getFakeData(Generator $faker) {
-		return $faker->dateTimeThisMonth()->format('H:i:s');
-	}
+    /**
+     * Gets a random time value, e.g. 14:20:22
+     *
+     * @param Faker\Generator
+     * @return string
+     */
+    public function getFakeData(Generator $faker)
+    {
+        return $faker->dateTimeThisMonth()->format('H:i:s');
+    }
 }

@@ -12,17 +12,18 @@
 
 use Faker\Generator;
 
+class MockYearField extends DataExtension
+{
 
-class MockYearField extends DataExtension {
 
-
-	/**
-	 * Gets a random year from this century
-	 *
-	 * @param Faker\Generator
-	 * @return string
-	 */
-	public function getFakeData(Generator $faker) {
-		return $faker->dateTimeThisCentury->format('Y');
-	}
+    /**
+     * Gets a random year from this century
+     *
+     * @param Faker\Generator
+     * @return string
+     */
+    public function getFakeData(Generator $faker)
+    {
+        return $faker->dateTimeThisCentury->format('Y');
+    }
 }

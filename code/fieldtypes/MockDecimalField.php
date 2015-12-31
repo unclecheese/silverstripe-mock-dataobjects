@@ -10,18 +10,18 @@
 
 use Faker\Generator;
 
+class MockDecimalField extends DataExtension
+{
 
-class MockDecimalField extends DataExtension {
 
-
-	/**
-	 * Gets a random decimal value
-	 * 
-	 * @param Faker\Generator
-	 * @return float
-	 */
-	public function getFakeData(Generator $faker) {
-		return DBField::create_field("Float", 0)->getFakeData($faker);
-	}
-
+    /**
+     * Gets a random decimal value
+     * 
+     * @param Faker\Generator
+     * @return float
+     */
+    public function getFakeData(Generator $faker)
+    {
+        return DBField::create_field("Float", 0)->getFakeData($faker);
+    }
 }

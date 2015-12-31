@@ -10,17 +10,18 @@
  */
 use Faker\Generator;
 
-class MockBooleanField extends DataExtension {
+class MockBooleanField extends DataExtension
+{
 
 
-	/**
-	 * Gets a random boolean value
-	 *
-	 * @param Faker\Generator
-	 * @return boolean
-	 */
-	public function getFakeData(Generator $faker) {
-		return $faker->boolean();
-	}
-
+    /**
+     * Gets a random boolean value
+     *
+     * @param Faker\Generator
+     * @return boolean
+     */
+    public function getFakeData(Generator $faker)
+    {
+        return $faker->boolean();
+    }
 }
