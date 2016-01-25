@@ -10,17 +10,18 @@
 
 use Faker\Generator;
 
+class MockIntField extends DataExtension
+{
 
-class MockIntField extends DataExtension {
 
-
-	/**
-	 * Gets a random integer
-	 *
-	 * @param Faker\Generator
-	 * @return int
-	 */
-	public function getFakeData(Generator $faker) {
-		return $faker->randomNumber();
-	}
+    /**
+     * Gets a random integer
+     *
+     * @param Faker\Generator
+     * @return int
+     */
+    public function getFakeData(Generator $faker)
+    {
+        return $faker->randomNumber();
+    }
 }

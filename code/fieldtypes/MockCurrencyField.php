@@ -10,18 +10,18 @@
 
 use Faker\Generator;
 
+class MockCurrencyField extends DataExtension
+{
 
-class MockCurrencyField extends DataExtension {
 
-
-	/**
-	 * Gets a random currency value
-	 * 
-	 * @param Faker\Generator
-	 * @return float
-	 */
-	public function getFakeData(Generator $faker) {
-		return mt_rand(1, 100000)/100;
-	}
-
+    /**
+     * Gets a random currency value
+     * 
+     * @param Faker\Generator
+     * @return float
+     */
+    public function getFakeData(Generator $faker)
+    {
+        return mt_rand(1, 100000)/100;
+    }
 }

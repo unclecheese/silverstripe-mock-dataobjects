@@ -8,19 +8,19 @@
  * @package silverstripe-mock-dataobjects
  * @author Uncle Cheese <unclecheese@leftandmain.com>
  */
-class MockDataLog extends DataObject {
+class MockDataLog extends DataObject
+{
 
 
-	private static $db = array (
-		'RecordClass' => 'Varchar',
-		'RecordID' => 'Int'
-	);
+    private static $db = array(
+        'RecordClass' => 'Varchar',
+        'RecordID' => 'Int'
+    );
 
 
 
-	private static $indexes = array (
-		'RecordClass' => true,
-		'RecordID' => true
-	);
-
+    private static $indexes = array(
+        'RecordClass' => true,
+        'RecordID' => true
+    );
 }

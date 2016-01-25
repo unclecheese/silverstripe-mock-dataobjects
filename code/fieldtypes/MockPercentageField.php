@@ -11,18 +11,18 @@
 
 use Faker\Generator;
 
+class MockPercentageField extends DataExtension
+{
 
-class MockPercentageField extends DataExtension {
 
-
-	/**
-	 * Gets a random percentage
-	 *
-	 * @param Faker\Generator
-	 * @return float
-	 */
-	public function getFakeData(Generator $faker) {
-		return mt_rand(1,99)/100;		
-	}
-
+    /**
+     * Gets a random percentage
+     *
+     * @param Faker\Generator
+     * @return float
+     */
+    public function getFakeData(Generator $faker)
+    {
+        return mt_rand(1, 99)/100;
+    }
 }

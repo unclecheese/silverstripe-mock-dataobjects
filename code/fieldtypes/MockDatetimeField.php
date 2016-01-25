@@ -10,17 +10,18 @@
 
 use Faker\Generator;
 
-class MockDatetimeField extends DataExtension {
+class MockDatetimeField extends DataExtension
+{
 
 
-	/**
-	 * Gets a random date and time from this year
-	 *
-	 * @param Faker\Generator
-	 * @return string
-	 */
-	public function getFakeData(Generator $faker) {
-		return $faker->dateTimeThisYear()->format('Y-m-d H:i:s');
-	}
-
+    /**
+     * Gets a random date and time from this year
+     *
+     * @param Faker\Generator
+     * @return string
+     */
+    public function getFakeData(Generator $faker)
+    {
+        return $faker->dateTimeThisYear()->format('Y-m-d H:i:s');
+    }
 }

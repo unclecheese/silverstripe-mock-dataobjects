@@ -12,18 +12,18 @@
 
 use Faker\Generator;
 
+class MockDoubleField extends DataExtension
+{
 
-class MockDoubleField extends DataExtension {
 
-
-	/**
-	 * Gets a random float value
-	 *
-	 * @param Faker\Generator
-	 * @return float
-	 */
-	public function getFakeData(Generator $faker) {
-		return mt_rand(1, 999)/1000;		
-	}
-
+    /**
+     * Gets a random float value
+     *
+     * @param Faker\Generator
+     * @return float
+     */
+    public function getFakeData(Generator $faker)
+    {
+        return mt_rand(1, 999)/1000;
+    }
 }

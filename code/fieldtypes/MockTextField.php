@@ -11,16 +11,18 @@
 
 use Faker\Generator;
 
-class MockTextField extends DataExtension {
+class MockTextField extends DataExtension
+{
 
 
-	/**
-	 * Gets a random paragraph
-	 *
-	 * @param Faker\Generator
-	 * @return string
-	 */
-	public function getFakeData(Generator $faker) {
-		return $faker->paragraph(rand(1,3));
-	}
+    /**
+     * Gets a random paragraph
+     *
+     * @param Faker\Generator
+     * @return string
+     */
+    public function getFakeData(Generator $faker)
+    {
+        return $faker->paragraph(rand(1, 3));
+    }
 }
