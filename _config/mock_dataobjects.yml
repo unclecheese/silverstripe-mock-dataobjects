@@ -19,6 +19,9 @@ MockDataObject:
     only_empty: true
   relation_create_limit: 5
 
+Member:
+  mock_blacklist:
+    - PasswordEncryption
 SiteTree:
   extensions:
     - MockDataSiteTree

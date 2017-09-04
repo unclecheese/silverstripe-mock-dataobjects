@@ -18,7 +18,7 @@ class MockDataObject extends DataExtension
      */
     protected $fakeInstance;
 
-
+    private static $mock_blacklist = array();
 
     /**
      * An accessor to get all of the stock files that ship with the package
@@ -152,6 +152,7 @@ class MockDataObject extends DataExtension
 
         // Anything that is a core SiteTree field, e.g. "URLSegment", "ShowInMenus", "ParentID",  we don't care about.
         $omit = Injector::inst()->get("SiteTree")->db();
+        $omit = array_merge($omit, $this->owner->config()->mock_blacklist);
 
         // Except these two.
         unset($omit['Title']);
