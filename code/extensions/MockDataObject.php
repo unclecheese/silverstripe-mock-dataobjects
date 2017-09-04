@@ -113,7 +113,7 @@ class MockDataObject extends DataExtension
     public static function get_random_local_image()
     {
         self::install_mock_files();
-        return self::get_mock_files()->sort("RAND()")->first();
+        return self::get_mock_files()->sort(DB::get_conn()->random())->first();
     }
 
 
@@ -195,7 +195,7 @@ class MockDataObject extends DataExtension
             } elseif ($className == "Subsite") {
                 continue;
             } else {
-                $random_record = DataList::create($className)->sort("RAND()")->first();
+                $random_record = DataList::create($className)->sort(DB::get_conn()->random())->first();
                 if (!$random_record && !$sitetree) {
                     $i = 0;
                     while ($i <= $create_limit) {
@@ -248,7 +248,7 @@ class MockDataObject extends DataExtension
                     $r->write();
                     $diff++;
                 }
-                $random_records = DataList::create($className)->sort("RAND()")->limit(rand(0, $create_limit));
+                $random_records = DataList::create($className)->sort(DB::get_conn()->random())->limit(rand(0, $create_limit));
                 $this->owner->$relation()->setByIDList($random_records->column('ID'));
             }
         }
